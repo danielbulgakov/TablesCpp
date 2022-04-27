@@ -1,4 +1,4 @@
-#ifndef _TARRAY_TABLE_
-#define _TARRAY_TABLE_
+#ifndef _TARRAYTABLE_
+#define _TARRAYTABLE_
 
-#endif // _TARRAY_TABLE_
+#endif // _TARRAYTABLE_

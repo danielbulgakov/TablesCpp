@@ -11,6 +11,7 @@ add_executable(CodeEditorCpp ${SOURCE} main.cpp)
 SET(TARGET_H
 
     Headers/TArrayTable.h
+    Headers/TTabRecord.h
     Headers/TDataCom.h
     Headers/TDataValue.h
     Headers/TTable.h
