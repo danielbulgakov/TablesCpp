@@ -3,7 +3,7 @@
 
 class TDataValue{
 public:
-    virtual void Print(ostream& where) const = 0;
+    virtual void Print(std::ostream& where) const = 0;
     virtual TDataValue* GetCopy() = 0;
     ~TDataValue(){};
 

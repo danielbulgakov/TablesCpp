@@ -17,7 +17,7 @@ protected:
     TKey Key;
     PTDataValue pValue;
 
-    // virtual void Print(std::ostream& where) { where << Key << "   " << pValue;}
+    virtual void Print(std::ostream& where) const override { where << Key << "   " << pValue;}
 
 public:
 
@@ -27,17 +27,17 @@ public:
     TKey GetKet(TKey key) {return this->Key;}
     void SetValue(PTDataValue pvalue){this->pValue = pvalue;}
     PTDataValue GetValue (){return this->pValue;}
-    // PTDataValue GetCopy() {return new TDataValue(this->Key, this->pValue);}
+    PTDataValue GetCopy() override {return new TTabRecord(this->Key, this->pValue);}
 
-    // TTabRecord operator= (const TTabRecord& tr){  Cant return abstract class object
-    //     this->Key = tr.Key;
-    //     this->pValue = tr.pValue; // GetCopy() ? SetValue()?
-    //     return *this;
-    // }
+    TTabRecord& operator= (const TTabRecord& tr){  // Check if it works
+        this->Key = tr.Key;
+        this->pValue = tr.pValue; // GetCopy() ? SetValue()?
+        return *this;
+    }
 
     virtual bool operator==(const TTabRecord& tr) const{
         return this->Key == tr.Key;
-    } // 5 > 3 ? true : false
+    } 
 
     virtual bool operator> (const TTabRecord& tr) const{
         return this->Key > tr.Key;
