@@ -21,7 +21,7 @@ protected:
 
 public:
 
-    TTabRecord(TKey key, PTDataValue pvalue) : Key(key), pValue(pvalue) {}
+    TTabRecord(TKey key = "nullkey", PTDataValue pvalue = nullptr) { Key = key; pValue = pvalue;}
 
     void SetKet(TKey key) {this->Key = key;}
     TKey GetKet(TKey key) {return this->Key;}

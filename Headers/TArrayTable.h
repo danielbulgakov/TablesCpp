@@ -17,7 +17,7 @@ protected:
 public:
     TArrayTable(size_t size = 100){
         TabSize = (int32_t)size;
-        pRecord = new TTabRecord[size];
+        *pRecord = new TTabRecord[size];
         for (size_t i=0; i < size; i++){
             pRecord[i] = nullptr;
         }
@@ -25,11 +25,11 @@ public:
     }
     ~TArrayTable(){
         for (size_t i=0; i < DataCount; i++){
-            delete pRecord[i;]
+            delete pRecord[i];
         }
         delete[] pRecord;
     }
-}
+};
 
 
 #endif // _TARRAYTABLE_
