@@ -5,7 +5,10 @@
 #include "TTabRecord.h"
 #include <iostream>
 
-class TTable : TDataCom{
+constexpr int8_t TabOk = 0;
+constexpr int8_t TabNoRecord = -1;
+
+class TTable : public TDataCom{
 protected:
     size_t DataCount;
     int32_t Efficiency;

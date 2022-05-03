@@ -15,6 +15,7 @@ SET(TARGET_H
     Headers/TDataCom.h
     Headers/TDataValue.h
     Headers/TTable.h
+    Headers/TScanTable.h
 
 )
 
