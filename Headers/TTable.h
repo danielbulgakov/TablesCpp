@@ -4,18 +4,20 @@
 #include "TDataValue.h"
 #include "TTabRecord.h"
 #include <iostream>
+#include <iomanip>
 
 constexpr int8_t TabOk = 0;
 constexpr int8_t TabNoRecord = -1;
+constexpr int8_t TabMemError = -1;
 
 class TTable : public TDataCom{
 protected:
-    size_t DataCount;
+    int32_t DataCount;
     int32_t Efficiency;
 
 public:
     TTable() : DataCount(0) , Efficiency(0) {}
-    virtual ~TTable();
+    virtual ~TTable() {};
 
     size_t GetDataCount() const {return DataCount;}
     int32_t GetEfficiency() const {return Efficiency;}
@@ -35,7 +37,9 @@ public:
 
     friend std::ostream& operator<< (std::ostream& out, TTable& t){
         for (t.Reset(); !t.isTabEnded(); t.GoNext()){
-            out << "Key " << t.GetKey() << " Val " << t.GetValue();
+        
+            out  << "Key " << std::setw(30) << t.GetKey() << " Val " << (*t.GetValue());
+            out << std::endl;
         }
         return out;
     }

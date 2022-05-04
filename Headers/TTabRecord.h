@@ -11,6 +11,7 @@ typedef TDataValue* PTDataValue;
 class TTabRecord;
 typedef TTabRecord* PTTabRecord;
 
+
 class TTabRecord : TDataValue
 {
 protected:
@@ -23,15 +24,15 @@ public:
 
     TTabRecord(TKey key = "nullkey", PTDataValue pvalue = nullptr) { Key = key; pValue = pvalue;}
 
-    void SetKet(TKey key) {this->Key = key;}
-    TKey GetKet(TKey key) {return this->Key;}
+    void SetKey(TKey key) {this->Key = key;}
+    TKey GetKey() {return this->Key;}
     void SetValue(PTDataValue pvalue){this->pValue = pvalue;}
-    PTDataValue GetValue (){return this->pValue;}
-    PTDataValue GetCopy() override {return new TTabRecord(this->Key, this->pValue);}
+    PTDataValue GetValue () {return this->pValue;}
+    PTDataValue GetCopy() {return new TTabRecord(this->Key, this->pValue);}
 
     TTabRecord& operator= (const TTabRecord& tr){  // Check if it works
         this->Key = tr.Key;
-        this->pValue = tr.pValue; // GetCopy() ? SetValue()?
+        this->pValue = tr.pValue->GetCopy(); // GetCopy() ? SetValue()?
         return *this;
     }
 

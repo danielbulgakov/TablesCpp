@@ -12,17 +12,17 @@ public:
     TScanTable(int32_t size = TabMaxSize) : TArrayTable(size) {}
 
     virtual PTDataValue FindRecord(TKey key){
-        SetRetCode(DataOk);
+        SetRetCode(TabOk);
         size_t i;
         for (i = 0; i < DataCount; i++){
-            if (pRecord[i]->Key == key){
+            if (pRecord[i]->Key == key) {
                 break;
             }
         }
 
-        Efficiency = i + 1;
+        Efficiency = (int32_t)i + 1;
         if (i < DataCount){
-            CurPos = i;
+            CurPos = (int32_t)i;
             return pRecord[i]->pValue;
         }
         SetRetCode(TabNoRecord);
@@ -30,12 +30,40 @@ public:
     }
 
     virtual void InsRecord(TKey key, PTDataValue value){
+        SetRetCode(TabMemError);
+        size_t i;
+        for (i = 0; i < DataCount; i++){
+            if (pRecord[i]->Key == "nullkey"){
+                break;
+            }
+        }
+        CurPos = (int32_t)i;
+        if (!isTabEnded()){
+            pRecord[i] = new TTabRecord(key, value);
+            DataCount++;
+        }
 
     }
 
     virtual void DelRecord(TKey key){
+        SetRetCode(TabMemError);
+        size_t i;
+        for (i = 0; i < DataCount; i++){
+            if (pRecord[i]->Key == key){
+                break;
+            }
+        }
+
+        if (i < DataCount){
+            CurPos = (int32_t)i;
+            delete (pRecord)[i];
+            pRecord = new PTTabRecord();
+            SetRetCode(TabOk);
+        }
 
     }
+
+
 };
 
 #endif // _TSCANTABLE_

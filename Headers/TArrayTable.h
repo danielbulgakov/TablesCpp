@@ -8,7 +8,7 @@ enum TDataPos{
     FirstPos, CurPos, LastPos
 };
 
-class TArrayTable : protected TTable
+class TArrayTable : public TTable
 {
 protected:
     PTTabRecord* pRecord;
@@ -17,9 +17,10 @@ protected:
 public:
     TArrayTable(size_t size = 100){
         TabSize = (int32_t)size;
-        *pRecord = new TTabRecord[size];
-        for (size_t i=0; i < size; i++){
-            pRecord[i] = nullptr;
+        pRecord = new PTTabRecord[TabSize];
+        for (size_t i = 0; i < size; ){
+            pRecord[i] = NULL;
+            i++;
         }
         CurPos = 0;
     }
@@ -30,7 +31,7 @@ public:
         delete[] pRecord;
     }
 
-    virtual bool IsFull() const {
+    virtual bool isFull() const {
         return DataCount >= TabSize;
     }
 
@@ -38,13 +39,13 @@ public:
         return TabSize;
     }
 
-    // virtual TKey GetKey() const{ реализовать самостоятельно
-    //     return TKey(CurPos);
-    // }
+    virtual TKey GetKey() const { 
+        return GetKey(TDataPos::CurPos);
+    }
 
-    // virtual PTDataValue GetValuePtr() { реализовать самостоятельно
-    //     return GetValuePtr(CurPos);
-    // }
+    virtual PTDataValue GetValue() const { 
+        return GetValuePtr(TDataPos::CurPos);
+    }
 
     virtual TKey GetKey(TDataPos mode) const{
         int32_t pos = -1;
@@ -55,18 +56,24 @@ public:
                 default: pos = CurPos; break;
             }
         }
-        return TKey(std::to_string(pos));
+        return pRecord[pos]->GetKey();
     }
 
     virtual PTDataValue GetValuePtr(TDataPos mode) const{
         PTDataValue value = nullptr;
+        int32_t pos = -1;
         if (!isEmpty()){
-            pRecord[mode]->pValue;           
+            switch (mode) {
+                case FirstPos: pos = 0; break;
+                case LastPos: pos = DataCount - 1; break;
+                default: pos = CurPos; break;
+            }           
         }
+        value = pRecord[pos]->pValue;
         return value;
     }
     
-    bool IsTabEnded() const {
+    bool isTabEnded() override {
         return CurPos >= TabSize;
     }
 
