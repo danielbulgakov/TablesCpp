@@ -6,11 +6,13 @@
 
 class TWord : public TDataValue{
 private :
-    std::string Word;
-    void Print(std::ostream& where) const { where << Word; } 
+    std::vector<std::string> v;
+    void Print(std::ostream& where) const { where << "{ "; for (auto el : v) where << el + " ,"; where << '}'; } 
 public:
-    TWord(std::string word = std::string()) : Word(word) {};
-    PTDataValue GetCopy() {return new TWord(Word);}
+    TWord(std::initializer_list<std::string> l) {
+        for (auto el : l) {v.push_back(el);}
+    };
+    PTDataValue GetCopy() {return new TWord({std::string()});}
 };
 
 int main(){
@@ -18,11 +20,11 @@ int main(){
     TScanTable tab;
 
 
-    CSVConverter csv("D:\\Study\\Cpp\\TablesCpp\\Tables\\Students.csv");
+    CSVConverter csv("..\\..\\Tables\\Students.csv");
     auto v = csv.Convert();
 
     for (auto el : v){
-        tab.InsRecord(el.first, new TWord(el.second));
+        tab.InsRecord(el.first, new TWord({el.second, el.second, el.second}));
     }
 
     std::cout << "Found at - " << *(tab.FindRecord("Gosteeva Ekaterina"));

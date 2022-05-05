@@ -46,6 +46,9 @@
         "xstring": "c",
         "xtr1common": "c",
         "xutility": "c",
-        "iomanip": "cpp"
-    }
+        "iomanip": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
+    },
+    "cmake.configureOnOpen": true
 }

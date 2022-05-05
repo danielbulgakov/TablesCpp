@@ -25,7 +25,7 @@ public:
         CurPos = 0;
     }
     ~TArrayTable(){
-        for (size_t i=0; i < DataCount; i++){
+        for (size_t i=0; i < (size_t)DataCount; i++){
             delete pRecord[i];
         }
         delete[] pRecord;

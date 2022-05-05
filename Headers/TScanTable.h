@@ -14,14 +14,14 @@ public:
     virtual PTDataValue FindRecord(TKey key){
         SetRetCode(TabOk);
         size_t i;
-        for (i = 0; i < DataCount; i++){
+        for (i = 0; i < (size_t)DataCount; i++){
             if (pRecord[i]->Key == key) {
                 break;
             }
         }
 
         Efficiency = (int32_t)i + 1;
-        if (i < DataCount){
+        if (i < (size_t)DataCount){
             CurPos = (int32_t)i;
             return pRecord[i]->pValue;
         }
@@ -32,7 +32,7 @@ public:
     virtual void InsRecord(TKey key, PTDataValue value){
         SetRetCode(TabMemError);
         size_t i;
-        for (i = 0; i < DataCount; i++){
+        for (i = 0; i < (size_t)DataCount; i++){
             if (pRecord[i]->Key == "nullkey"){
                 break;
             }
@@ -48,13 +48,13 @@ public:
     virtual void DelRecord(TKey key){
         SetRetCode(TabMemError);
         size_t i;
-        for (i = 0; i < DataCount; i++){
+        for (i = 0; i < (size_t)DataCount; i++){
             if (pRecord[i]->Key == key){
                 break;
             }
         }
 
-        if (i < DataCount){
+        if (i < (size_t)DataCount){
             CurPos = (int32_t)i;
             delete (pRecord)[i];
             pRecord[i] = new TTabRecord();
