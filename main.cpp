@@ -25,6 +25,10 @@ int main(){
         tab.InsRecord(el.first, new TWord(el.second));
     }
 
+    std::cout << "Found at - " << *(tab.FindRecord("Gosteeva Ekaterina"));
+    tab.DelRecord("Gosteeva Ekaterina");
+    tab.DelRecord("Demina Daria");
+    std::cout << std::endl;
     std::cout << tab;
 
     return 0;

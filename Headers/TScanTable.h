@@ -57,7 +57,7 @@ public:
         if (i < DataCount){
             CurPos = (int32_t)i;
             delete (pRecord)[i];
-            pRecord = new PTTabRecord();
+            pRecord[i] = new TTabRecord();
             SetRetCode(TabOk);
         }
 
