@@ -11,9 +11,9 @@ enum TDataPos{
 class TArrayTable : public TTable
 {
 protected:
-    PTTabRecord* pRecord;
     int32_t TabSize;
     int32_t CurPos;
+    PTTabRecord* pRecord;
 public:
     TArrayTable(size_t size = 100){
         TabSize = (int32_t)size;
@@ -100,7 +100,7 @@ public:
 
 
 
-
+    friend TSortTable;
 };
 
 
