@@ -53,10 +53,33 @@ protected:
         PTTabRecord *pBuf = new PTTabRecord[DataCount];
         PTTabRecord *pTemp = pBuf;
         MergeSorter(pMem, pBuf, DataCount);
-        MergeSort
-
+        delete pTemp;
     }
-    void MergeSorter(PTTabRecord* &pData, PTTabRecord* &pBuf, size_t size);
+    /**
+     * @brief Деление массива пополам.
+     * 
+     * @param pData 
+     * @param pBuf 
+     * @param size размер pBuf
+     */
+    void MergeSorter(PTTabRecord* &pData, PTTabRecord* &pBuf, size_t size){
+        int32_t n1 = size + 1 / 2, n2 = size - n1; // Индексы начала и конца массива
+        if (size > 2) {
+            PTTabRecord* pData2 = pData + n1;
+            PTTabRecord* pBuf2 = pBuf + n1;
+            MergeSorter(pData, pBuf, n1);
+            MergeSorter(pData2, pBuf2, n2);
+        } 
+        MergeData(pData, pBuf, n1, n2);      
+    };
+    /**
+     * @brief Слияние упорядоченных половинок массива.
+     * 
+     * @param pData 
+     * @param pBuf 
+     * @param n1 
+     * @param n2 
+     */
     void MergeData(PTTabRecord* &pData, PTTabRecord* &pBuf, int32_t n1, int32_t n2);
     void QuickSort(PTTabRecord* pMem, size_t DataCount);  // Можно изменять при необходимости.
     void QuickSplit(PTTabRecord* pData, size_t size, int32_t& pivot);  // Можно изменять при необходимости.
