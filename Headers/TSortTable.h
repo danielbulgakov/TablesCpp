@@ -20,6 +20,12 @@ protected:
             case Quick  :{ QuickSort(pRecord,DataCount); break;}
         }
     };
+    /**
+     * @brief Сортировка методом вставок
+     * 
+     * @param pMem указатель на pRecord
+     * @param DataCount параметр DataCount
+     */
     void InsertSort(PTTabRecord* pMem, size_t DataCount){
         PTTabRecord pR;
         for (size_t i = 1, j; i < DataCount; i++){
@@ -36,7 +42,20 @@ protected:
             pRecord[j+1] = pR;
         }
     };
-    void MergeSort(PTTabRecord* pMem, size_t DataCount);
+    /**
+     * @brief Сортировка методом слияния
+     * 
+     * @param pMem указатель на pRecord
+     * @param DataCount параметр DataCount
+     */
+    void MergeSort(PTTabRecord* pMem, size_t DataCount){
+        PTTabRecord *pData = pMem;
+        PTTabRecord *pBuf = new PTTabRecord[DataCount];
+        PTTabRecord *pTemp = pBuf;
+        MergeSorter(pMem, pBuf, DataCount);
+        MergeSort
+
+    }
     void MergeSorter(PTTabRecord* &pData, PTTabRecord* &pBuf, size_t size);
     void MergeData(PTTabRecord* &pData, PTTabRecord* &pBuf, int32_t n1, int32_t n2);
     void QuickSort(PTTabRecord* pMem, size_t DataCount);  // Можно изменять при необходимости.
