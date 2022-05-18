@@ -37,6 +37,7 @@ public:
 
     friend std::ostream& operator<< (std::ostream& out, TTable& t){
         for (t.Reset(); !t.isTabEnded(); t.GoNext()){
+            
             if (t.GetKey() == "nullkey") { continue;}
             out  << "Key " << std::setw(30) << t.GetKey() << " Val " << (*t.GetValue());
             out << std::endl;

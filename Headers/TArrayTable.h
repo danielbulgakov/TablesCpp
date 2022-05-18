@@ -74,7 +74,7 @@ public:
     }
     
     bool isTabEnded() override {
-        return CurPos >= TabSize;
+        return CurPos >= DataCount;
     }
 
     int32_t Reset() override{

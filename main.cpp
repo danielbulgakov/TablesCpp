@@ -1,5 +1,6 @@
 #include "Headers/csvconverter.h"
 #include "Headers/TScanTable.h"
+#include "Headers/TSortTable.h"
 #include <vector>
 #include <Windows.h>
 
@@ -28,10 +29,21 @@ int main(){
     }
 
     std::cout << "Found at - " << *(tab.FindRecord("Gosteeva Ekaterina"));
+    TSortTable ts(tab);
+    
     tab.DelRecord("Gosteeva Ekaterina");
     tab.DelRecord("Demina Daria");
+
+
+    std::cout << std::endl;
+    std::cout << ts;
     std::cout << std::endl;
     std::cout << tab;
+
+
+   
+
+    
 
     return 0;
 }

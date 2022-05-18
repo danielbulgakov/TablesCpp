@@ -9,7 +9,7 @@ private:
 
 
 public:
-    TScanTable(int32_t size = TabMaxSize) : TArrayTable(size) {}
+    TScanTable(size_t size = TabMaxSize) : TArrayTable(size) {}
 
     virtual PTDataValue FindRecord(TKey key){
         SetRetCode(TabOk);
@@ -38,7 +38,7 @@ public:
             }
         }
         CurPos = (int32_t)i;
-        if (!isTabEnded()){
+        if (!isFull()){
             pRecord[i] = new TTabRecord(key, value);
             DataCount++;
         }

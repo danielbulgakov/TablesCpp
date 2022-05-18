@@ -21,6 +21,6 @@ SET(TARGET_H
 )
 
 SET(TARGET_SRC
-
+    Source/TSortTable.h
 )
 

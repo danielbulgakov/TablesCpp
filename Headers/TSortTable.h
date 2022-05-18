@@ -12,66 +12,41 @@ class TSortTable : public TScanTable
 private:
     TSortMethod SortMethod;
 protected:
-    void SortData(){
-        Efficiency = 0;
-        switch (SortMethod){
-            case Insert :{InsertSort(pRecord,DataCount); break;}
-            case Merge  :{ MergeSort(pRecord,DataCount); break;}
-            case Quick  :{ QuickSort(pRecord,DataCount); break;}
-        }
-    };
+
     /**
-     * @brief Сортировка методом вставок
-     * 
-     * @param pMem указатель на pRecord
-     * @param DataCount параметр DataCount
+     * @brief Запуск сортировки по типу переменное SortMethod.
      */
-    void InsertSort(PTTabRecord* pMem, size_t DataCount){
-        PTTabRecord pR;
-        for (size_t i = 1, j; i < DataCount; i++){
-            pR = pRecord[i];
-            for (j = i - 1; j > -1; j++){
-                if (pRecord[j]->Key > pR->Key){
-                    pRecord[j+1] = pRecord[j];
-                    Efficiency++;
-                }
-                else {
-                    break;
-                }
-            }
-            pRecord[j+1] = pR;
-        }
-    };
+    void SortData();
+
+
     /**
-     * @brief Сортировка методом слияния
+     * @brief Сортировка методом вставок.
      * 
-     * @param pMem указатель на pRecord
-     * @param DataCount параметр DataCount
+     * @param pMem указатель на pRecord.
+     * @param DataCount параметр DataCount.
      */
-    void MergeSort(PTTabRecord* pMem, size_t DataCount){
-        PTTabRecord *pData = pMem;
-        PTTabRecord *pBuf = new PTTabRecord[DataCount];
-        PTTabRecord *pTemp = pBuf;
-        MergeSorter(pMem, pBuf, DataCount);
-        delete pTemp;
-    }
+    void InsertSort(PTTabRecord* pMem, size_t DataCount);
+
+
+    /**
+     * @brief Сортировка методом слияния.
+     * 
+     * @param pMem указатель на pRecord.
+     * @param DataCount параметр DataCount.
+     */
+    void MergeSort(PTTabRecord* pMem, size_t DataCount);
+
+
     /**
      * @brief Деление массива пополам.
      * 
      * @param pData 
      * @param pBuf 
-     * @param size размер pBuf
+     * @param size размер pBuf.
      */
-    void MergeSorter(PTTabRecord* &pData, PTTabRecord* &pBuf, size_t size){
-        int32_t n1 = size + 1 / 2, n2 = size - n1; // Индексы начала и конца массива
-        if (size > 2) {
-            PTTabRecord* pData2 = pData + n1;
-            PTTabRecord* pBuf2 = pBuf + n1;
-            MergeSorter(pData, pBuf, n1);
-            MergeSorter(pData2, pBuf2, n2);
-        } 
-        MergeData(pData, pBuf, n1, n2);      
-    };
+    void MergeSorter(PTTabRecord* &pData, PTTabRecord* &pBuf, size_t size);
+    
+    
     /**
      * @brief Слияние упорядоченных половинок массива.
      * 
@@ -80,67 +55,78 @@ protected:
      * @param n1 
      * @param n2 
      */
-    void MergeData(PTTabRecord* &pData, PTTabRecord* &pBuf, int32_t n1, int32_t n2);
+    void MergeData(PTTabRecord* &pData, PTTabRecord* &pBuf, int32_t n1, int32_t n2) {return;};
+    
+    
+    /**
+     * @brief Быстрая сортировка.
+     * 
+     * @param pMem указатель на pRecord.
+     * @param DataCount парметр DataCount.
+     * TODO  Реализовать
+     */
     void QuickSort(PTTabRecord* pMem, size_t DataCount);  // Можно изменять при необходимости.
-    void QuickSplit(PTTabRecord* pData, size_t size, int32_t& pivot);  // Можно изменять при необходимости.
+    
+    
+    // void QuickSplit(PTTabRecord* pData, size_t size, int32_t& pivot) { return;};  // Можно изменять при необходимости.
 public:
+
+    /**
+     * @brief Конструктор класса. 
+     * 
+     * @param Size размер таблицы.
+     */
     TSortTable(size_t Size = 20) : TScanTable(Size) {}
-    TSortTable(const TScanTable& tab){
-        // ToDo
-        // *this = tab; 
-        // ToDo конструктор копирования для TScanTable
-        // SortData();
-    }
-    TSortTable& operator= (const TScanTable& tab) {
-        if (pRecord != nullptr){
-            for (size_t i = 0; i < DataCount; i++){
-                delete pRecord[i];
-            }
-            delete[] pRecord;
-            pRecord = nullptr;
-        }
-        TabSize = tab.GetTabSize();
-        DataCount = tab.GetDataCount();
-        pRecord = new PTTabRecord[TabSize];
-        for (size_t i = 0; i < DataCount; i++){
-            pRecord[i] = (PTTabRecord)tab.pRecord[i]->GetCopy();
-        }
-        SortData();
-        CurPos = FirstPos;
-        return *this;
-    };
+
+    /**
+     * @brief Конструктор копирования класса.
+     * TODO  Реализовать
+     * @param tab ссылка на объект класса TScanTable.
+     */
+    TSortTable(const TScanTable& tab);
+
+    /**
+     * @brief Оператор присваивания.
+     * 
+     * @param tab ссылка на объект класса TScanTable.
+     */
+    TSortTable& operator= (const TScanTable& tab);
+
+
+    /**
+     * @brief Геттер.
+     */
     TSortMethod GetMethod() { return SortMethod;}
+
+
+    /**
+     * @brief Сеттер.
+     * @param method параметр типа TSortMethod.
+     */
     void SetMethod(TSortMethod method) {SortMethod = method;}
-    virtual PTDataValue FindRecord(TKey key){
-        SetRetCode(TabNoRecord);
-        int32_t i = 0, i1 = 0, i2 = DataCount - 1;
-        Efficiency = 0;
-        while (i1 <= i2){
-            Efficiency ++;
-            i = (i1 + i2) / 2;
-            if (pRecord[i]->Key == key){
-                i1 = i + 1;
-                i2 = i;
-                break;
-            }
-            if (pRecord[i]->Key > key)
-                i2 = i - 1;
-            else i1 = i + 1;
-        }
 
-        if (i2 < 0 || pRecord[i2]->Key < key)
-            i2++;
-        CurPos = i2;
 
-        if (pRecord[i2]->Key == key && i2 < DataCount){
-            SetRetCode(TabOk);
-            return pRecord[i2]->pValue ;
-        }
-        else {
-            return nullptr;
-        }                                                                                          
-    };
+    /**
+     * @brief Найти запись в таблице. 
+     * @param key ключ.
+     */
+    virtual PTDataValue FindRecord(TKey key);
+
+
+    /**
+     * @brief Вставить запись в таблицу. 
+     * @param key ключ.
+     * @param pValue значение.
+     * TODO  Реализовать
+     */
     virtual void InsRecord(TKey key, PTDataValue pValue);
+
+
+    /**
+     * @brief Удалить запись из таблицы. 
+     * @param key ключ.
+     * TODO  Реализовать
+     */
     virtual void DelRecord(TKey key);
     
     
