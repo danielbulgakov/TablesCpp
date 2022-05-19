@@ -29,16 +29,23 @@ int main(){
     }
 
     std::cout << "Found at - " << *(tab.FindRecord("Gosteeva Ekaterina"));
-    TSortTable ts(tab);
+    TSortTable ts;
+    ts.SetMethod(Merge);
+    ts = tab;
+    
     
     tab.DelRecord("Gosteeva Ekaterina");
     tab.DelRecord("Demina Daria");
 
+    ts.DelRecord("Gosteeva Ekaterina");
 
     std::cout << std::endl;
-    std::cout << ts;
-    std::cout << std::endl;
-    std::cout << tab;
+    std::cout << ts << std::endl;
+
+    std::cout << *ts.FindRecord("Demina Daria");
+
+
+    
 
 
    

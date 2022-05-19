@@ -19,7 +19,7 @@ public:
         TabSize = (int32_t)size;
         pRecord = new PTTabRecord[TabSize];
         for (size_t i = 0; i < size; ){
-            pRecord[i] = NULL;
+            pRecord[i] = nullptr;
             i++;
         }
         CurPos = 0;
@@ -69,7 +69,8 @@ public:
                 default: pos = CurPos; break;
             }           
         }
-        value = pRecord[pos]->pValue;
+        if (pRecord[pos] == nullptr) return value;
+        else value = pRecord[pos]->pValue;
         return value;
     }
     

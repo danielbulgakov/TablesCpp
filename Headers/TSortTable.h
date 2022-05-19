@@ -55,7 +55,7 @@ protected:
      * @param n1 
      * @param n2 
      */
-    void MergeData(PTTabRecord* &pData, PTTabRecord* &pBuf, int32_t n1, int32_t n2) {return;};
+    void MergeData(PTTabRecord* &pData, PTTabRecord* &pBuf, int32_t n1, int32_t n2);
     
     
     /**
@@ -128,6 +128,7 @@ public:
      * TODO  Реализовать
      */
     virtual void DelRecord(TKey key);
+    
     
     
 

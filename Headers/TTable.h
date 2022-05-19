@@ -8,7 +8,10 @@
 
 constexpr int8_t TabOk = 0;
 constexpr int8_t TabNoRecord = -1;
-constexpr int8_t TabMemError = -1;
+constexpr int8_t TabMemError = -2;
+constexpr int8_t TabFull = -3;
+constexpr int8_t TabRecDbl = -4;
+
 
 class TTable : public TDataCom{
 protected:
@@ -38,7 +41,7 @@ public:
     friend std::ostream& operator<< (std::ostream& out, TTable& t){
         for (t.Reset(); !t.isTabEnded(); t.GoNext()){
             
-            if (t.GetKey() == "nullkey") { continue;}
+            if (t.GetKey() == "nullkey") { continue;} 
             out  << "Key " << std::setw(30) << t.GetKey() << " Val " << (*t.GetValue());
             out << std::endl;
         }

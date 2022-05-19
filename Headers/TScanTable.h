@@ -46,21 +46,15 @@ public:
     }
 
     virtual void DelRecord(TKey key){
-        SetRetCode(TabMemError);
-        size_t i;
-        for (i = 0; i < (size_t)DataCount; i++){
-            if (pRecord[i]->Key == key){
-                break;
+        PTDataValue temp = FindRecord(key);
+        if (temp == nullptr) SetRetCode(TabNoRecord);
+        else{
+            for(int32_t i = CurPos; i < DataCount - 1; i++ ){
+                pRecord[i] = pRecord[i+1];
             }
-        }
-
-        if (i < (size_t)DataCount){
-            CurPos = (int32_t)i;
-            delete (pRecord)[i];
-            pRecord[i] = new TTabRecord();
+            pRecord[--DataCount] = nullptr;
             SetRetCode(TabOk);
         }
-
     }
 
 
