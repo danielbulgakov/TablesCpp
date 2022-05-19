@@ -2,6 +2,7 @@
 #define _TSORTTABLE_
 
 #include "TScanTable.h"
+#include "algorithm"
 
 enum TSortMethod{
     Insert, Merge, Quick
@@ -67,8 +68,8 @@ protected:
      */
     void QuickSort(PTTabRecord* pMem, size_t DataCount);  // Можно изменять при необходимости.
     
-    
-    // void QuickSplit(PTTabRecord* pData, size_t size, int32_t& pivot) { return;};  // Можно изменять при необходимости.
+
+
 public:
 
     /**
