@@ -30,17 +30,35 @@ int main(){
 
     std::cout << "Found at - " << *(tab.FindRecord("Gosteeva Ekaterina"));
     TSortTable ts;
-    ts.SetMethod(Merge);
-    ts = tab;
+    // ts.SetMethod(Merge);
+    // ts = tab;
     
     
-    tab.DelRecord("Gosteeva Ekaterina");
-    tab.DelRecord("Demina Daria");
+    // tab.DelRecord("Gosteeva Ekaterina");
+    // tab.DelRecord("Demina Daria");
 
-    ts.DelRecord("Gosteeva Ekaterina");
 
     std::cout << std::endl;
-    std::cout << ts << std::endl;
+    std::cout << "Standart Table \n" << tab << std::endl;
+
+
+    ts.SetMethod(Insert);
+    ts = tab;
+    ts.DelRecord("Gosteeva Ekaterina");
+    std::cout << "Insertion Sort Table \n" << ts << std::endl;
+
+
+    ts.SetMethod(Merge);
+    ts = tab;
+    ts.DelRecord("Demina Daria");
+    std::cout << "Merge Sort Table \n" << ts << std::endl;
+
+
+    ts.SetMethod(Quick);
+    ts = tab;
+    ts.DelRecord("Bulgakov Daniil");
+    std::cout << "Quick Sort Table \n" << ts << std::endl;
+
 
     std::cout << *ts.FindRecord("Demina Daria");
 
