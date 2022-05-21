@@ -30,12 +30,16 @@ void TSortTable::InsertSort(PTTabRecord* pMem, size_t DataCount){
 void TSortTable::QuickSort(PTTabRecord* pMem, size_t DataCount) {
     
     auto comparator = [] (const void * first, const void * second){
-        if (((PTTabRecord)first)->GetKey() > ((PTTabRecord)second)->GetKey()) return 1;
-        else if (((PTTabRecord)first)->GetKey() < ((PTTabRecord)second)->GetKey()) return -1;
+
+        auto vfirst = *(PTTabRecord*)first;
+        auto vsecond = *(PTTabRecord*)second;
+
+        if (vfirst->GetKey() > vsecond->GetKey()) return 1;
+        else if (vfirst->GetKey() < vsecond->GetKey()) return -1;
         else return 0;
     };
 
-    std::qsort(&pMem, DataCount, sizeof(PTTabRecord), comparator); 
+    std::qsort(pMem, DataCount, sizeof(PTTabRecord), comparator); 
 
 }
 
