@@ -48,7 +48,9 @@
         "xutility": "c",
         "iomanip": "cpp",
         "xlocmon": "cpp",
-        "xloctime": "cpp"
+        "xloctime": "cpp",
+        "algorithm": "cpp",
+        "list": "cpp"
     },
     "cmake.configureOnOpen": true
 }
