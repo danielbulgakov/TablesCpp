@@ -37,7 +37,15 @@ void TListHashTable::InsRecord(TKey key, PTDataValue pValue) {
 }
 
 void TListHashTable::DelRecord(TKey key) {
-    throw std::error_code();
+    PTDataValue tmp = nullptr;
+    CurList = HashFun(key)%TabSize;
+    std::list<PTTabRecord>* plist = pList + CurList;
+    for (auto rec : *plist){
+        if (rec->Key == key){
+            delete rec;
+            break;
+        }
+    }
 }
 
 TKey TListHashTable::GetKey() const {
