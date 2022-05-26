@@ -50,17 +50,22 @@ PTDataValue TListHashTable::GetValue() const {
 
 int32_t TListHashTable::Reset() {
     CurList = 0;
-    StartChain = pList->begin();
-    return IsTabEnded();
+    while (pList[CurList].size() == 0 && !IsTabEnded()){
+    }
+    StartChain = pList[CurList].begin();
+    return !IsTabEnded();
 }
 
 int32_t TListHashTable::GoNext() {
-    throw std::error_code();
-    // StartChain++;
-    // if (StartChain != pList[CurList].end()){
-    //     return IsTabEnded();
-    // }
-    // CurList++;
+    StartChain++;
+    if (StartChain != pList[CurList].end())
+        return !IsTabEnded();
+    CurList++;
+    while (pList[CurList].size() == 0 && !IsTabEnded())
+    {
+        CurList++;
+    }
+    return IsTabEnded();
 }
 
 bool TListHashTable::IsTabEnded() const {
