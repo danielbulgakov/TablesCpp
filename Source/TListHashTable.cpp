@@ -41,11 +41,11 @@ void TListHashTable::DelRecord(TKey key) {
 }
 
 TKey TListHashTable::GetKey() const {
-    throw std::error_code();
+    return (*StartChain)->GetKey();
 }
 
 PTDataValue TListHashTable::GetValue() const {
-    throw std::error_code();
+    return (*StartChain)->GetValue();
 }
 
 int32_t TListHashTable::Reset() {
